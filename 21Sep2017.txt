@@ -1,0 +1,430 @@
+1. Banner Bubble and button base html. See step 2 for styling.
+Sections>banner is changed 
+################### From: 
+
+    <section class="jumbotron themed" data-preview-item="page-banner">
+    
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-12 content">
+        {% if section.settings.title != blank %}
+          <h1>{{ section.settings.title }}</h1>
+        {% endif %}
+    
+        {% if section.settings.subtitle != blank %}
+          <p>{{ section.settings.subtitle }}</p>
+        {% endif %}
+    
+        {% include 'product_action_buttons' %}
+      </div>
+    </div>
+    </div>
+</section>
+
+{% if page.is_product && page.is_coupon_code_provided %}
+  {% include "coupon" %}
+{% endif %}
+
+{% style %}
+  .jumbotron {
+    z-index: 1;
+
+    $background-color: {{section.settings.background_color}};
+    {% if section.settings.background_image != blank %}
+    $background-image: '{{section.settings.background_image }}';
+    {% else %}
+    $background-image: null;
+    {% endif %}
+    $background-overlay-opacity: {{section.settings.background_overlay}} * 0.01;
+
+    @if $background-overlay-opacity {
+      $color: rgba($background-color, $background-overlay-opacity);
+      $overlay: linear-gradient(
+        $color,
+        $color
+      );
+    } @else {
+      $overlay: null;
+    }
+    $img: if($background-image, url('#{$background-image}'), null);
+
+    @if $img {
+      $background: ($overlay, $img);
+    } @else {
+      $background: (rgba($background-color, $background-overlay-opacity));
+    }
+
+    @include background($background...);
+    background-color: $background-color;
+    background-size: cover;
+    background-position: center center;
+
+    // Typography
+
+    h1 {
+      color: {{section.settings.title_color}} !important;
+    }
+
+    p {
+      color: {{section.settings.body_text_color}} !important;
+    }
+
+    // Buttons
+
+    .btn-primary {
+      color: $button-primary-color;
+      border-color: transparent;
+      background-color: $btn-primary__background;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "label": "Banner",
+  "settings": [
+    {
+      "label": "Banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Altitude Theme"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "This is a subtitle. Say anything you would like!"
+        },
+        {
+          "type": "color",
+          "id": "body_text_color",
+          "label": "Subtitle Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "label": "Section Style",
+      "description": "Navigate to the <a href='/manage/branding'>Branding</a> section of your Dashboard to change main heading color and body text color.",
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#245efc"
+        },
+        {
+          "type": "image",
+          "id": "background_image",
+          "label": "Background Image",
+          "default": "https://dcyzo8atttzpx.cloudfront.net/altitude-v2/hero_banner.png"
+        },
+        {
+          "type": "number",
+          "id": "background_overlay",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "label": "Background Image Overlay Opacity"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+################### To:
+
+
+<section class="jumbotron themed" data-preview-item="page-banner">
+    {% comment %}
+        Added by Jins - 14th Sep 2017
+        Begining of Additional buttons on banner.
+    {% endcomment%}
+    <div class="starting-more">
+        <div class="starting-price-holder">
+            <div class="starting-price">¡A partir de EUR 7,95!</div>
+        </div>
+        <div class="more-info-holder">
+            <div class="more-info">¡Más información! <i class="glyphicon glyphicon-arrow-down"></i></div>
+        </div>
+    </div>
+    {% comment %}
+        Added by Jins - 14th Sep 2017
+        End of Additional buttons on banner.
+    {% endcomment%}
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-12 content">
+        {% if section.settings.title != blank %}
+          <h1>{{ section.settings.title }}</h1>
+        {% endif %}
+    
+        {% if section.settings.subtitle != blank %}
+          <p>{{ section.settings.subtitle }}</p>
+        {% endif %}
+    
+        {% include 'product_action_buttons' %}
+      </div>
+    </div>
+    </div>
+</section>
+
+{% if page.is_product && page.is_coupon_code_provided %}
+  {% include "coupon" %}
+{% endif %}
+
+{% style %}
+  .jumbotron {
+    z-index: 1;
+
+    $background-color: {{section.settings.background_color}};
+    {% if section.settings.background_image != blank %}
+    $background-image: '{{section.settings.background_image }}';
+    {% else %}
+    $background-image: null;
+    {% endif %}
+    $background-overlay-opacity: {{section.settings.background_overlay}} * 0.01;
+
+    @if $background-overlay-opacity {
+      $color: rgba($background-color, $background-overlay-opacity);
+      $overlay: linear-gradient(
+        $color,
+        $color
+      );
+    } @else {
+      $overlay: null;
+    }
+    $img: if($background-image, url('#{$background-image}'), null);
+
+    @if $img {
+      $background: ($overlay, $img);
+    } @else {
+      $background: (rgba($background-color, $background-overlay-opacity));
+    }
+
+    @include background($background...);
+    background-color: $background-color;
+    background-size: cover;
+    background-position: center center;
+
+    // Typography
+
+    h1 {
+      color: {{section.settings.title_color}} !important;
+    }
+
+    p {
+      color: {{section.settings.body_text_color}} !important;
+    }
+
+    // Buttons
+
+    .btn-primary {
+      color: $button-primary-color;
+      border-color: transparent;
+      background-color: $btn-primary__background;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "label": "Banner",
+  "settings": [
+    {
+      "label": "Banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Altitude Theme"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "This is a subtitle. Say anything you would like!"
+        },
+        {
+          "type": "color",
+          "id": "body_text_color",
+          "label": "Subtitle Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "label": "Section Style",
+      "description": "Navigate to the <a href='/manage/branding'>Branding</a> section of your Dashboard to change main heading color and body text color.",
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#245efc"
+        },
+        {
+          "type": "image",
+          "id": "background_image",
+          "label": "Background Image",
+          "default": "https://dcyzo8atttzpx.cloudfront.net/altitude-v2/hero_banner.png"
+        },
+        {
+          "type": "number",
+          "id": "background_overlay",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "label": "Background Image Overlay Opacity"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+2. Adding styles to the bubble and button
+
+Styles > custom.scss
+
+############# from:
+.starting-more
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.starting-price-holder {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    top: 30vh;
+    top: 30%;
+    left: 5%;
+    display: table;
+    border-radius: 50%;
+    background-color: #fdf8e2;
+    border: 3px solid orange;
+}
+
+.starting-price {
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #73047d;
+    padding: 10px;
+}
+.more-info-holder {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px;
+}
+
+.more-info {
+    position: relative;
+    padding: 10px;
+    background-color: #450d5a;
+    color: #ffaa02;
+    font-size: 1.7em;
+}
+
+################# to:
+.starting-more
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.starting-price-holder {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    top: 30vh;
+    top: 30%;
+    left: 5%;
+    display: table;
+    border-radius: 50%;
+    background-color: #fdf8e2;
+    border: 3px solid orange;
+}
+
+.starting-price {
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #73047d;
+    padding: 10px;
+}
+.more-info-holder {
+    position: absolute;
+    bottom: 0px;
+    right: 80px;
+    padding: 10px;
+}
+
+.more-info {
+    position: relative;
+    padding: 10px;
+    background-color: #450d5a;
+    color: #ffaa02;
+    font-size: 1.7em;
+}
+
+
+
+
+
+
+
+
+3. Putting the "Siguente" (continue) button out of the right hand corner, where it is behind the Intercom Chat button icon.
+
+Advanced Settings > Site Custom CSS
+
+from:
+
+._actions_apmbd3 {
+    display: block;
+    margin: auto;
+}
+
+to:
+
+._actions_apmbd3 {
+    display: block;
+    margin: auto;
+}
